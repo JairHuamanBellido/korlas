@@ -17,6 +17,7 @@ import {
 import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
 import { resourceInventoryRepository } from "@/infrastructure/repository/resource-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
+import { queue } from "@/domain/queue";
 
 export default function TitaniumXFactory({ id, data }: any) {
   const [count, setCount] = useState<number>(1);
@@ -48,18 +49,18 @@ export default function TitaniumXFactory({ id, data }: any) {
       if (!currentInventory) {
         return;
       }
-      if (count === TITANIUMX_GENERATION_THRESHOLD) {
-        updateNodeData(id, { quantity: data.quantity + 1 });
-        await resourceInventoryRepository.updateMaterialsQuantity({
-          id: currentInventory.id as string,
-          quantity:
-            (currentInventory.resources[NodeMaterialsType.titaniumX] || 0) + 1,
-          resourceType: NodeMaterialsType.titaniumX,
-        });
-      }
-    }
 
-    updateQuantity();
+      updateNodeData(id, { quantity: data.quantity + 1 });
+      await resourceInventoryRepository.updateMaterialsQuantity({
+        id: currentInventory.id as string,
+        quantity:
+          (currentInventory.resources[NodeMaterialsType.titaniumX] || 0) + 1,
+        resourceType: NodeMaterialsType.titaniumX,
+      });
+    }
+    if (count === TITANIUMX_GENERATION_THRESHOLD) {
+      queue.push(async () => await updateQuantity());
+    }
   }, [count, updateNodeData]);
 
   return (

@@ -17,6 +17,7 @@ import {
 import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
 import { resourceInventoryRepository } from "@/infrastructure/repository/resource-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
+import { queue } from "@/domain/queue";
 
 export default function CobrexFactory({ id, data }: any) {
   const [count, setCount] = useState<number>(1);
@@ -47,16 +48,16 @@ export default function CobrexFactory({ id, data }: any) {
         return;
       }
 
-      if (count === COBREX_GENERATION_THRESHOLD) {
-        updateNodeData(id, { quantity: data.quantity + 1 });
-        await resourceInventoryRepository.updateMaterialsQuantity({
-          id: currentInventory.id as string,
-          quantity: currentInventory.resources[NodeMaterialsType.cobrex] + 1,
-          resourceType: NodeMaterialsType.cobrex,
-        });
-      }
+      updateNodeData(id, { quantity: data.quantity + 1 });
+      await resourceInventoryRepository.updateMaterialsQuantity({
+        id: currentInventory.id as string,
+        quantity: currentInventory.resources[NodeMaterialsType.cobrex] + 1,
+        resourceType: NodeMaterialsType.cobrex,
+      });
     }
-    updateQuantity();
+    if (count === COBREX_GENERATION_THRESHOLD) {
+      queue.push(async () => await updateQuantity());
+    }
   }, [count, updateNodeData]);
 
   return (
