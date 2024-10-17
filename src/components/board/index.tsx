@@ -13,6 +13,7 @@ import { flowGraphRepository } from "@/infrastructure/repository/flow-graph.repo
 import { CobrexFactory } from "../nodes/cobrex";
 import MaterialsDockBar from "../materials-dockbar";
 import { TitaniumXFactory } from "../nodes/titaniumX";
+import StoreModal from "../store/modal";
 
 interface Props {
   flowGraph: IFlowGraphIndexDB;
@@ -62,6 +63,7 @@ export default function Board({ flowGraph }: Props) {
   return (
     <div className="h-full w-[calc(100%_-_600px)] relative">
       <MaterialsDockBar />
+      <StoreModal />
       <ReactFlow
         nodes={nodes}
         nodeTypes={nodeTypes}

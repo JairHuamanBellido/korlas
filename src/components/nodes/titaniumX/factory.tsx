@@ -14,8 +14,8 @@ import {
   TITANIUMX_GENERATION_THRESHOLD,
   TITANIUMX_INTERVAL_DURATION_MS,
 } from "./constants";
-import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
-import { resourceInventoryRepository } from "@/infrastructure/repository/resource-inventory.repository";
+import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
+import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { queue } from "@/domain/queue";
 
@@ -45,13 +45,13 @@ export default function TitaniumXFactory({ id, data }: any) {
 
   useEffect(() => {
     async function updateQuantity() {
-      const currentInventory = await ResourceInventoryService.getCurrent();
+      const currentInventory = await MaterialsInventoryService.getCurrent();
       if (!currentInventory) {
         return;
       }
 
       updateNodeData(id, { quantity: data.quantity + 1 });
-      await resourceInventoryRepository.updateMaterialsQuantity({
+      await materialInventoryRepository.updateMaterialsQuantity({
         id: currentInventory.id as string,
         quantity:
           (currentInventory.resources[NodeMaterialsType.titaniumX] || 0) + 1,

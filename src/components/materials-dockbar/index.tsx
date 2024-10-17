@@ -1,10 +1,10 @@
-import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
+import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Skeleton } from "../ui/skeleton";
 
 export default function MaterialsDockBar() {
   const materialsStorage = useLiveQuery(() =>
-    ResourceInventoryService.getCurrent()
+    MaterialsInventoryService.getCurrent()
   );
 
   return (

@@ -5,14 +5,14 @@ import NodeInfoSidebar from "./components/sidebar/node-info-sidebar";
 import Board from "./components/board";
 import { useLiveQuery } from "dexie-react-hooks";
 import { useEffect } from "react";
-import { ResourceInventoryService } from "./domain/services/ResourceInventoryService";
+import { MaterialsInventoryService } from "./domain/services/MaterialsInventoryService";
 import { FlowGraphService } from "./domain/services/FlowGraphService";
 
 function App() {
   const flowGraph = useLiveQuery(() => FlowGraphService.getCurrent())!;
 
   useEffect(() => {
-    ResourceInventoryService.create();
+    MaterialsInventoryService.create();
     FlowGraphService.create();
   }, []);
 

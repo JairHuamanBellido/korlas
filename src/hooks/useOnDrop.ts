@@ -1,7 +1,7 @@
 import { factories } from "@/domain/factories/dictionary";
 import { FactoryController } from "@/domain/FactoryController";
-import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
-import { resourceInventoryRepository } from "@/infrastructure/repository/resource-inventory.repository";
+import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
+import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { useCurrentDragNodeSelectedStore } from "@/store/current-drag-node-selected";
 import { Node, useReactFlow } from "@xyflow/react";
 import { useCallback } from "react";
@@ -42,11 +42,11 @@ export const useOnDrop = ({
         (factory) => factory.type === newNode.type
       )!;
 
-      const currentInventory = await ResourceInventoryService.getCurrent()!;
+      const currentInventory = await MaterialsInventoryService.getCurrent()!;
 
       for await (const requiredMaterial of factoryTarget.requiredMaterials) {
         if (currentInventory) {
-          await resourceInventoryRepository.updateMaterialsQuantity({
+          await materialInventoryRepository.updateMaterialsQuantity({
             id: currentInventory?.id as string,
             quantity:
               currentInventory.resources[requiredMaterial.name] -

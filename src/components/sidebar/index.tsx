@@ -1,6 +1,6 @@
 import { NodeFactoriesType } from "@/core/nodeFactoriesType";
 import { factories } from "@/domain/factories/dictionary";
-import { ResourceInventoryService } from "@/domain/services/ResourceInventoryService";
+import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
 import { useCurrentDragNodeSelectedStore } from "@/store/current-drag-node-selected";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Skeleton } from "../ui/skeleton";
@@ -15,7 +15,7 @@ import {
 export default function Sidebar() {
   const { setNodeTypeSelected } = useCurrentDragNodeSelectedStore();
   const currentInventory = useLiveQuery(() =>
-    ResourceInventoryService.getCurrent()
+    MaterialsInventoryService.getCurrent()
   );
   const onDragStart = (event: any, nodeType: NodeFactoriesType) => {
     setNodeTypeSelected(nodeType);

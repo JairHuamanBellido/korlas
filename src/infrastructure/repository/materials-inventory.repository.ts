@@ -1,12 +1,12 @@
 import { KorlasDatabase } from "../database/korlasDb";
 
-class ResourceInventoryRepository extends KorlasDatabase {
+class MaterialInventoryRepository extends KorlasDatabase {
   constructor() {
     super();
   }
 
   public async create() {
-    return await this.korlasResourceInventoryDatabase.add({
+    return await this.korlasMaterialsInventoryDatabase.add({
       id: window.crypto.randomUUID(),
       resources: {
         solaris: 20,
@@ -17,7 +17,7 @@ class ResourceInventoryRepository extends KorlasDatabase {
   }
 
   public async getCurrent() {
-    const currentRecord = await this.korlasResourceInventoryDatabase.toArray();
+    const currentRecord = await this.korlasMaterialsInventoryDatabase.toArray();
 
     if (!currentRecord.length) {
       return null;
@@ -27,7 +27,7 @@ class ResourceInventoryRepository extends KorlasDatabase {
   }
 
   public async getById(id: string) {
-    return await this.korlasResourceInventoryDatabase.get(id);
+    return await this.korlasMaterialsInventoryDatabase.get(id);
   }
 
   public async updateMaterialsQuantity({
@@ -45,18 +45,18 @@ class ResourceInventoryRepository extends KorlasDatabase {
       throw new Error("Not exist");
     }
 
-    const db = await this.korlasResourceInventoryDatabase.db;
+    const db = await this.korlasMaterialsInventoryDatabase.db;
 
     await db.transaction(
       "rw",
-      this.korlasResourceInventoryDatabase,
+      this.korlasMaterialsInventoryDatabase,
       async () => {}
     );
-    return await this.korlasResourceInventoryDatabase.update(id, {
+    return await this.korlasMaterialsInventoryDatabase.update(id, {
       ...resourceRecord,
       resources: { ...resourceRecord.resources, [resourceType]: quantity },
     });
   }
 }
 
-export const resourceInventoryRepository = new ResourceInventoryRepository();
+export const materialInventoryRepository = new MaterialInventoryRepository();

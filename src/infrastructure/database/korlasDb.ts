@@ -1,15 +1,15 @@
 import Dexie, { Table } from "dexie";
-import { IResourceInventoryIndexDB } from "../interface/IResourceInvestory";
 import { IFlowGraphIndexDB } from "../interface/IFlowGraph";
+import { IMaterialsInventoryIndexDB } from "../interface/IMaterialsInventory";
 
 export class KorlasDatabase extends Dexie {
-  korlasResourceInventoryDatabase!: Table<IResourceInventoryIndexDB, string>;
+  korlasMaterialsInventoryDatabase!: Table<IMaterialsInventoryIndexDB, string>;
   korlasFlowGraphDatabase!: Table<IFlowGraphIndexDB>;
   constructor() {
     super("korlas");
 
     this.version(1).stores({
-      korlasResourceInventoryDatabase: "id",
+      korlasMaterialsInventoryDatabase: "id",
       korlasFlowGraphDatabase: "id",
     });
   }
