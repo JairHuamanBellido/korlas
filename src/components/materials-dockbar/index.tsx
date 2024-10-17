@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
 import { useLiveQuery } from "dexie-react-hooks";
 import { Skeleton } from "../ui/skeleton";
 
-export default function MaterialsDockBar() {
+function MaterialsDockBar() {
   const materialsStorage = useLiveQuery(() =>
     MaterialsInventoryService.getCurrent()
   );
@@ -14,7 +15,10 @@ export default function MaterialsDockBar() {
       ) : (
         <div className="flex items-center space-x-4 px-4">
           {Object.keys(materialsStorage.resources).map((material) => (
-            <div key={`${material}-dockbar`} className="flex items-center space-x-2">
+            <div
+              key={`${material}-dockbar`}
+              className="flex items-center space-x-2"
+            >
               <img
                 width={24}
                 height={16}
@@ -29,3 +33,5 @@ export default function MaterialsDockBar() {
     </div>
   );
 }
+
+export default memo(MaterialsDockBar);

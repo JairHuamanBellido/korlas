@@ -77,7 +77,7 @@ export default function Board({ flowGraph }: Props) {
         onDragOver={onDragOver}
         colorMode="dark"
       >
-        <Background bgColor="#101010" />
+        <Background bgColor="#020202" />
         <Controls />
       </ReactFlow>
     </div>
