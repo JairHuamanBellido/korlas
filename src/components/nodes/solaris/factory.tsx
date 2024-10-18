@@ -18,7 +18,7 @@ import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryS
 import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { queue } from "@/domain/queue";
-// import { queue } from "@/domain/queue";
+
 export default function SolarisFactory({ id, data }: any) {
   const [count, setCount] = useState<number>(1);
   const { updateNodeData } = useReactFlow();
@@ -26,7 +26,7 @@ export default function SolarisFactory({ id, data }: any) {
 
   const nodeSourceConnection = useHandleConnections({
     type: "source",
-    id: "node-a",
+    id: "node-solaris",
   });
   useEffect(() => {
     const subscription = interval(SOLARIS_INTERVAL_DURATION_MS).subscribe(
@@ -74,14 +74,15 @@ export default function SolarisFactory({ id, data }: any) {
       <Handle
         className="bg-black border border-solaris w-2 h-2"
         type="source"
-        id="node-a"
+        id="node-solaris"
         isConnectable={nodeSourceConnection.length < 1}
-        position={Position.Top}
+        position={Position.Right}
       />
+
       <div className="flex space-x-2 items-center">
         <img width={16} height={16} src={solarislogo} alt="" />
 
-        <p className="text-white text-xs">Solaris (+10) {count}</p>
+        <p className="text-white text-base">Solaris <span className="text-xs font-normal text-muted-foreground"> +{data.quantity} </span></p>
       </div>
       <Timer
         fill="hsl(var(--solaris))"

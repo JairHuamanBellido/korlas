@@ -34,7 +34,9 @@ export default function Board({ flowGraph }: Props) {
 
   const { onNodesChange } = useOnNodesChange({ setNodes });
   const { onEdgesChange } = useOnEdgesChange({
+    edges,
     setEdges,
+    nodes
   });
   const { onConnect } = useOnConnect({
     nodes,
@@ -72,6 +74,9 @@ export default function Board({ flowGraph }: Props) {
         edges={edges}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        isValidConnection={(e) => {
+          return e.sourceHandle === e.targetHandle;
+        }}
         fitView
         snapToGrid={true}
         onDrop={onDrop}

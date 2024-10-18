@@ -26,8 +26,9 @@ export default function PlataniteFactory({ id, data }: any) {
 
   const nodeSourceConnections = useHandleConnections({
     type: "source",
-    id: "node-a",
+    id: "node-platanite",
   });
+  
   useEffect(() => {
     const subscription = interval(PLATANITE_INTERVAL_DURATION_MS).subscribe(
       () => {
@@ -75,9 +76,9 @@ export default function PlataniteFactory({ id, data }: any) {
       <Handle
         className="bg-black border border-platanite w-2 h-2"
         type="source"
-        id="node-a"
+        id="node-platanite"
         isConnectable={nodeSourceConnections.length < 1}
-        position={Position.Top}
+        position={Position.Right}
       />
       <div className="flex space-x-2 items-center">
         <img width={16} height={16} src={platanitelogo} alt="" />

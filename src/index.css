@@ -5,6 +5,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  line-height: normal;
 }
 @layer base {
   :root {
@@ -48,4 +49,11 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.react-flow__handle.connectingto {
+  background: red !important;
+}
+.react-flow__handle.connectingto.valid {
+  background: #33ffaa !important;
 }

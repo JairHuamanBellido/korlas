@@ -1,4 +1,3 @@
-import { TCrystallium } from "@/components/nodes/crystallium";
 import { BoardContoller } from "@/domain/BoardController";
 import { INodeFactoryGroup } from "@/domain/interface/IBaseNodeFactory";
 import { addEdge, Connection, Edge, Node, useReactFlow } from "@xyflow/react";
