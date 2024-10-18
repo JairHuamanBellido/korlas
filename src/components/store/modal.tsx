@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { storeData } from "@/domain/store";
 import {
   Dialog,
@@ -15,8 +14,8 @@ import CardItemStore from "./component/card";
 function StoreModal() {
   return (
     <Dialog>
-      <DialogTrigger className="absolute bottom-10 right-10 z-10" asChild>
-        <Button variant={"outline"}>
+      <DialogTrigger asChild>
+        <Button variant={"ghost"}>
           <Store />
           <p>Store</p>
         </Button>
@@ -40,4 +39,4 @@ function StoreModal() {
   );
 }
 
-export default memo(StoreModal);
+export default StoreModal;
