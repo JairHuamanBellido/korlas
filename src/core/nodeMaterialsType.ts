@@ -4,4 +4,5 @@ export enum NodeMaterialsType {
   cobrex = "cobrex",
   titaniumX = "titaniumX",
   crystallium = "crystallium",
+  energel = "energel"
 }

@@ -71,6 +71,7 @@ export default function SolarisFactory({ id, data }: any) {
         }
       )}
     >
+
       <Handle
         className="bg-black border border-solaris w-2 h-2"
         type="source"

@@ -14,6 +14,10 @@ import { CobrexFactory } from "../nodes/cobrex";
 import MaterialsDockBar from "../materials-dockbar";
 import { TitaniumXFactory } from "../nodes/titaniumX";
 import BottomBar from "../bottom-bar";
+import EnergelRefinement from "../nodes/energel/refinery";
+import EnergelFactoryInput from "../nodes/energel/factory-input";
+import EnergelRefinementNode from "../nodes/energel/refinement-node";
+import EnergelStorage from "../nodes/energel/storage";
 
 interface Props {
   flowGraph: IFlowGraphIndexDB;
@@ -28,6 +32,10 @@ export default function Board({ flowGraph }: Props) {
       cobrexFactory: CobrexFactory,
       titaniumXFactory: TitaniumXFactory,
       crystalliumFactory: CrystalliumFactory,
+      energelRefinement: EnergelRefinement,
+      energelFactoryInput: EnergelFactoryInput,
+      energelRefinementNode: EnergelRefinementNode,
+      energelStorage: EnergelStorage,
     }),
     []
   );
@@ -36,7 +44,7 @@ export default function Board({ flowGraph }: Props) {
   const { onEdgesChange } = useOnEdgesChange({
     edges,
     setEdges,
-    nodes
+    nodes,
   });
   const { onConnect } = useOnConnect({
     nodes,
@@ -44,6 +52,7 @@ export default function Board({ flowGraph }: Props) {
   });
   const { onDrop } = useOnDrop({
     setNodes,
+    setEdges,
   });
   const { onDragOver } = useOnDragOver();
 

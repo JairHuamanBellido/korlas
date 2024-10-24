@@ -26,7 +26,7 @@ export default function CobrexFactory({ id, data }: any) {
 
   const nodeSourceConnections = useHandleConnections({
     type: "source",
-    id: "node-a",
+    id: "node-cobrex",
   });
   useEffect(() => {
     const subscription = interval(COBREX_INTERVAL_DURATION_MS).subscribe(() => {
@@ -73,9 +73,9 @@ export default function CobrexFactory({ id, data }: any) {
       <Handle
         className="bg-black border border-cobrex w-2 h-2"
         type="source"
-        id="node-a"
+        id="node-cobrex"
         isConnectable={nodeSourceConnections.length < 1}
-        position={Position.Top}
+        position={Position.Right}
       />
       <div className="flex space-x-2 items-center">
         <img width={16} height={16} src={cobrexlogo} alt="" />

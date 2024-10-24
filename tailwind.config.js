@@ -16,6 +16,7 @@ export default {
         cobrex: "hsl(var(--cobrex))",
         titaniumx: "hsl(var(--titaniumX))",
         crystallium: "hsl(var(--crystallium))",
+        energel: "hsl(var(--energel))",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",

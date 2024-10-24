@@ -27,16 +27,20 @@ export const useOnEdgesChange = ({
         const edgeTarget = edges.find((e) => e.id === element.id)!;
         const nodeTarget = nodes.find((node) => node.id === edgeTarget.target)!;
         const nodeSource = nodes.find((node) => node.id === edgeTarget.source)!;
-        updateNodeData(nodeTarget.id, {
-          requiredFactories: (
-            nodeTarget.data as INodeFactoryGroup
-          ).requiredFactories.map((node) => {
-            if (node.name === nodeSource.type) {
-              return { ...node, connection: false };
-            }
-            return node;
-          }),
-        });
+
+        const requiredFactories = (nodeTarget.data as INodeFactoryGroup)
+          .requiredFactories;
+
+        if (requiredFactories) {
+          updateNodeData(nodeTarget.id, {
+            requiredFactories: requiredFactories.map((node) => {
+              if (node.name === nodeSource.type) {
+                return { ...node, connection: false };
+              }
+              return node;
+            }),
+          });
+        }
       });
 
       setEdges((eds) => applyEdgeChanges(changes, eds));

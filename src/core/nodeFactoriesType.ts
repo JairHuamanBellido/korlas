@@ -3,5 +3,9 @@ export enum NodeFactoriesType {
   plataniteFactory= "plataniteFactory",
   crystalliumFactory = "crystalliumFactory",
   titaniumXFactory = "titaniumXFactory",
-  cobrexFactory = "cobrexFactory"
+  cobrexFactory = "cobrexFactory",
+  energelRefinement = "energelRefinement",
+  energelFactoryInput = "energelFactoryInput",
+  energelRefinementNode = "energelRefinementNode",
+  energelStorage = "energelStorage"
 }

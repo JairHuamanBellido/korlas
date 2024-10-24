@@ -15,7 +15,6 @@ interface Factory {
   requiredFactories?: IRequiredFactory[];
 }
 
-
 export const factories: Factory[] = [
   {
     name: "Solaris Factory",
@@ -79,6 +78,17 @@ export const factories: Factory[] = [
       {
         name: NodeFactoriesType.cobrexFactory,
         connection: false,
+      },
+    ],
+  },
+  {
+    name: "Energel Refinement",
+    type: NodeFactoriesType.energelRefinement,
+    imageSrc: "/energel-factory.png",
+    requiredMaterials: [
+      {
+        name: NodeMaterialsType.solaris,
+        quantity: 2,
       },
     ],
   },
