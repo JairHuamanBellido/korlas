@@ -1,6 +1,8 @@
 import { NodeFactoriesType } from "@/core/nodeFactoriesType";
+import { NodeRefineriesType } from "@/core/nodeRefineryType";
 import { factories } from "@/domain/factories/dictionary";
 import { FactoryController } from "@/domain/FactoryController";
+import { RefineryController } from "@/domain/RefineryController";
 import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryService";
 import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { useCurrentDragNodeSelectedStore } from "@/store/current-drag-node-selected";
@@ -35,78 +37,15 @@ export const useOnDrop = ({
       }
 
       if (nodeTypeSelected === NodeFactoriesType.energelRefinement) {
-        const energelRefinement: Node = {
-          id: window.crypto.randomUUID(),
-          type: nodeTypeSelected,
-          position,
-          data: nodeData,
-        };
+        const nodesAndEdges = RefineryController.createNodesAndEdges(
+          NodeRefineriesType.energelRefinery,
+          position
+        );
+        if (!nodesAndEdges) return;
 
-        const energelFactoryInput: Node = {
-          id: window.crypto.randomUUID(),
-          type: NodeFactoriesType.energelFactoryInput,
-          position: { x: 40, y: 80 },
-          parentId: energelRefinement.id,
-          extent: "parent",
-          data:
-            FactoryController.createNode(
-              NodeFactoriesType.energelFactoryInput
-            ) || {},
-        };
-
-        const energelRefinementNode: Node = {
-          id: window.crypto.randomUUID(),
-          type: NodeFactoriesType.energelRefinementNode,
-          position: {
-            x: 440,
-            y: 200,
-          },
-          parentId: energelRefinement.id,
-          extent: "parent",
-          data: {},
-        };
-
-        const energelStorage: Node = {
-          id: window.crypto.randomUUID(),
-          type: NodeFactoriesType.energelStorage,
-          position: {
-            x: 700,
-            y: 150,
-          },
-          parentId: energelRefinement.id,
-          extent: "parent",
-          data: {
-            quantity: 0,
-          },
-        };
-
-        setNodes((prev) => [
-          ...prev,
-          energelRefinement,
-          energelFactoryInput,
-          energelRefinementNode,
-          energelStorage,
-        ]);
-
-        setEdges((prev) => [
-          ...prev,
-          {
-            id: window.crypto.randomUUID(),
-            source: energelFactoryInput.id,
-            sourceHandle: "node-energel-refinement-input",
-            target: energelRefinementNode.id,
-            targetHandle: "node-energel-refinement-input",
-            animated: true,
-          },
-          {
-            id: window.crypto.randomUUID(),
-            source: energelRefinementNode.id,
-            sourceHandle: "node-energel-refinement-output",
-            target: energelStorage.id,
-            targetHandle: "node-energel-refinement-output",
-            animated: true,
-          },
-        ]);
+        const { edges, nodes } = nodesAndEdges;
+        setNodes((prev) => [...prev, ...nodes]);
+        setEdges((prev) => [...prev, ...edges]);
       } else {
         const newNode: Node = {
           id: window.crypto.randomUUID(),
