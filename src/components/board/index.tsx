@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Background, Controls, ReactFlow } from "@xyflow/react";
+import { Controls, ReactFlow } from "@xyflow/react";
 import { SolarisFactory } from "../nodes/solaris";
 import { PlataniteFactory } from "../nodes/platanite";
 import { CrystalliumFactory } from "../nodes/crystallium";

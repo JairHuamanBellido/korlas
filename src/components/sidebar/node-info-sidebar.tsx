@@ -1,11 +1,12 @@
 import { Node, useNodesData } from "@xyflow/react";
 import { useCurrentNodeSelected } from "../../store/current-node-selected";
 import { cn } from "@/lib/utils";
+import { IBaseNodeFactory, INodeFactoryGroup } from "@/domain/interface/IBaseNodeFactory";
 
 export default function NodeInfoSidebar() {
   const { id } = useCurrentNodeSelected();
 
-  const nodeData = useNodesData<Node<any>>(id ?? "");
+  const nodeData = useNodesData<Node<IBaseNodeFactory | INodeFactoryGroup>>(id ?? "");
 
   return (
     <div className="w-[360px] h-full relative p-6">
@@ -29,7 +30,7 @@ export default function NodeInfoSidebar() {
               <p>{nodeData.data.quantity}</p>
             </div>
 
-            {nodeData.data.requiredFactories && (
+            {'requiredFactories' in nodeData.data && nodeData.data.requiredFactories && (
               <div className="space-y-1">
                 <p className="text-muted-foreground">Connections</p>
                 <div className="space-y-2">
@@ -37,7 +38,7 @@ export default function NodeInfoSidebar() {
                 
                 {nodeData.data.requiredFactories.map((node, i) => (
                   <div
-                    data-state={node.conection ? "on" : "off"}
+                    data-state={node.connection ? "on" : "off"}
                     key={`${node.name}-${i}-sidebar`}
                     className={cn("flex items-center space-x-2")}
                   >

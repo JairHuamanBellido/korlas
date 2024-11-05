@@ -31,7 +31,7 @@ export function EnergelRefinementNode() {
 
   const { updateNodeData } = useReactFlow();
 
-  const nodeSource = useNodesData(handleSourceOutput[0]?.target);
+  const nodeSource = useNodesData<Node<INodeFactoryGroup>>(handleSourceOutput[0]?.target);
 
   const [status, setStatus] = useState<"PENDING" | "PROCESSING" | "SUCCESS">(
     "PENDING"
