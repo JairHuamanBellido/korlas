@@ -4,7 +4,7 @@ function useSingleSession() {
   const [isActiveSession, setIsActiveSession] = useState(true);
   const currentTabId = sessionStorage.getItem("tabId") || Date.now().toString();
   sessionStorage.setItem("tabId", currentTabId);
-
+  console.log(currentTabId)
   useEffect(() => {
     localStorage.setItem("lastActiveTab", currentTabId);
 
