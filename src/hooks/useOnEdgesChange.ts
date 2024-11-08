@@ -45,7 +45,7 @@ export const useOnEdgesChange = ({
 
       setEdges((eds) => applyEdgeChanges(changes, eds));
     },
-    [setEdges, edges, nodes]
+    [setEdges, edges, nodes, updateNodeData]
   );
 
   return { onEdgesChange };

@@ -9,7 +9,7 @@ export class RefineryController {
     position: XYPosition
   ) {
     switch (refineryType) {
-      case NodeRefineriesType.energelRefinery:
+      case NodeRefineriesType.energelRefinery: {
         const refineryNodeData = FactoryController.createNode(
           NodeFactoriesType.energelRefinement
         );
@@ -89,6 +89,10 @@ export class RefineryController {
             edgeRefinementNodeToStorageNode,
           ],
         };
+      }
+      default: {
+        break;
+      }
     }
   }
 }

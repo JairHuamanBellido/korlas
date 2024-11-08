@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   Handle,
+  Node,
+  NodeProps,
   Position,
   useHandleConnections,
   useReactFlow,
@@ -18,8 +20,12 @@ import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryS
 import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { queue } from "@/domain/queue";
+import { IBaseNodeFactory } from "@/domain/interface/IBaseNodeFactory";
 
-export default function SolarisFactory({ id, data }: any) {
+export default function SolarisFactory({
+  id,
+  data,
+}: NodeProps<Node<IBaseNodeFactory>>) {
   const [count, setCount] = useState<number>(1);
   const { updateNodeData } = useReactFlow();
   const { id: currentNodeIdSelected } = useCurrentNodeSelected();
@@ -59,6 +65,7 @@ export default function SolarisFactory({ id, data }: any) {
     if (count === SOLARIS_GENERATION_THRESHOLD) {
       queue.push(async () => await updateQuantiy());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, updateNodeData]);
 
   return (
@@ -71,7 +78,6 @@ export default function SolarisFactory({ id, data }: any) {
         }
       )}
     >
-
       <Handle
         className="bg-black border border-solaris w-2 h-2"
         type="source"
@@ -83,7 +89,13 @@ export default function SolarisFactory({ id, data }: any) {
       <div className="flex space-x-2 items-center">
         <img width={16} height={16} src={solarislogo} alt="" />
 
-        <p className="text-white text-base">Solaris <span className="text-xs font-normal text-muted-foreground"> +{data.quantity} </span></p>
+        <p className="text-white text-base">
+          Solaris{" "}
+          <span className="text-xs font-normal text-muted-foreground">
+            {" "}
+            +{data.quantity}{" "}
+          </span>
+        </p>
       </div>
       <Timer
         fill="hsl(var(--solaris))"

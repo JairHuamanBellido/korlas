@@ -31,7 +31,7 @@ export const useOnConnect = ({
 
       setEdges((eds) => addEdge({ ...params }, eds));
     },
-    [nodes]
+    [nodes, setEdges, updateNodeData]
   );
 
   return { onConnect };

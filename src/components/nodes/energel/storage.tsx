@@ -1,7 +1,10 @@
 import { cn } from "@/lib/utils";
-import { Handle, Position } from "@xyflow/react";
+import { Handle, Node, NodeProps, Position } from "@xyflow/react";
 import EnergelStone from "/energel-stone.png";
-export default function EnergelStorage({data}:any) {
+import { IBaseNodeFactory } from "@/domain/interface/IBaseNodeFactory";
+export default function EnergelStorage({
+  data,
+}: NodeProps<Node<IBaseNodeFactory>>) {
   return (
     <div
       className={cn(

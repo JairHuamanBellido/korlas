@@ -2,6 +2,7 @@ import EnergelFactory from "/energel-factory.png";
 import {
   Handle,
   Node,
+  NodeProps,
   Position,
   useHandleConnections,
   useNodesData,
@@ -15,9 +16,15 @@ import {
 } from "@/components/multilevel-node";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { useEffect } from "react";
-import { IBaseNodeFactory } from "@/domain/interface/IBaseNodeFactory";
+import {
+  IBaseNodeFactory,
+  INodeFactoryGroup,
+} from "@/domain/interface/IBaseNodeFactory";
 
-export default function EnergelFactoryInput({ data, id }: any) {
+export default function EnergelFactoryInput({
+  data,
+  id,
+}: NodeProps<Node<INodeFactoryGroup>>) {
   const nodeSolaris = useHandleConnections({
     type: "target",
     id: "node-solaris",
@@ -69,6 +76,7 @@ export default function EnergelFactoryInput({ data, id }: any) {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeCobrex, nodeCobrexFactory]);
   useEffect(() => {
     if (!data.requiredMaterials) {
@@ -95,6 +103,7 @@ export default function EnergelFactoryInput({ data, id }: any) {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodeSolaris, nodeSolarisFactory]);
 
   useEffect(() => {
@@ -110,8 +119,6 @@ export default function EnergelFactoryInput({ data, id }: any) {
       nodePlataniteFactory.data.quantity > 0 &&
       materialRequired.actualQuantity < materialRequired.requiredQuantity
     ) {
-      console.log(nodePlatanite[0].source, nodePlataniteFactory);
-
       updateNodeData(nodePlatanite[0].source, {
         quantity: nodePlataniteFactory?.data.quantity - 1,
       });
@@ -125,13 +132,19 @@ export default function EnergelFactoryInput({ data, id }: any) {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodePlatanite, nodePlataniteFactory]);
 
   if (!data.requiredMaterials) {
     return <></>;
   }
   return (
-    <MultilevelNodeContainer style={{background: `color-mix(in srgb, black 70%, hsl(var(--energel)) )`}} className=" border-energel/20">
+    <MultilevelNodeContainer
+      style={{
+        background: `color-mix(in srgb, black 70%, hsl(var(--energel)) )`,
+      }}
+      className=" border-energel/20"
+    >
       <MultiLevelHeaderNodeContainer>
         <img width={16} height={16} src={EnergelFactory} alt="" />
         <p className="text-white font-semibold text-lg">Energel Refinery</p>

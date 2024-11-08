@@ -69,7 +69,7 @@ export default function Board({ flowGraph }: Props) {
       });
     }
     updateNodesAndEdges();
-  }, [nodes, edges]);
+  }, [nodes, edges, flowGraph.id]);
 
   return (
     <div className="h-full w-[calc(100%_-_600px)] relative">

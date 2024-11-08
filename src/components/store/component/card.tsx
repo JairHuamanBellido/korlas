@@ -50,6 +50,7 @@ export default function CardItemStore({
         description: "Build more factories!",
       });
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       for await (const _ of Array.from({ length: quantity })) {
         queue.push(
           async () =>
