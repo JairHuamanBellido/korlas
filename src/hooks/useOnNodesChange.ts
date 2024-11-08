@@ -25,7 +25,7 @@ export const useOnNodesChange = ({
 
       setNodes((nds) => applyNodeChanges(changes, nds));
     },
-    [setNodes]
+    [setNodes, setNodeId]
   );
 
   return { onNodesChange };

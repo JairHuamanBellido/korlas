@@ -17,21 +17,20 @@ export default function Countdown({
 
   useEffect(() => {
     const subscription = interval(1000).subscribe(() => {
-      
       setRemainingTime((prev) => prev - 1);
     });
 
     if (isStopped || remainingTime === 0) {
       subscription.unsubscribe();
     }
-    if(remainingTime === 0){
-      setRemainingTime(durationInSeconds)
+    if (remainingTime === 0) {
+      setRemainingTime(durationInSeconds);
     }
 
     return () => {
       subscription.unsubscribe();
     };
-  }, [remainingTime, isStopped]);
+  }, [remainingTime, isStopped, setRemainingTime, durationInSeconds]);
 
   const formatTime = (time: number) => {
     const hours = Math.floor(time / 3600);
@@ -46,11 +45,10 @@ export default function Countdown({
   };
 
   useEffect(() => {
-    if (remainingTime === 0 && onFinish) {
-      console.log("called")
+    if (remainingTime === 0 && typeof onFinish === "function") {
       onFinish();
     }
-  }, [remainingTime]);
+  }, [remainingTime, onFinish]);
   return (
     <div className={cn(className)}>
       {remainingTime > 0 && <p> {formatTime(remainingTime)}</p>}

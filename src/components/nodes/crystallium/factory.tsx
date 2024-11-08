@@ -1,6 +1,7 @@
 import {
   Handle,
   Node,
+  NodeProps,
   Position,
   useHandleConnections,
   useNodesData,
@@ -26,7 +27,11 @@ import {
   SectionContentMultiLevelNode,
   SectionHeaderMultiLevelNode,
 } from "@/components/multilevel-node";
-export default function CrystalliumFactory({ id, data }: any) {
+import { INodeFactoryGroup } from "@/domain/interface/IBaseNodeFactory";
+export default function CrystalliumFactory({
+  id,
+  data,
+}: NodeProps<Node<INodeFactoryGroup>>) {
   const [count, setCount] = useState<number>(1);
 
   const nodeA = useHandleConnections({
@@ -88,16 +93,17 @@ export default function CrystalliumFactory({ id, data }: any) {
     if (count === CRYSTALLIUM_GENERATION_THRESHOLD) {
       queue.push(async () => await updateQuantity());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, updateNodeData]);
 
   return (
     <MultilevelNodeContainer
-      className={cn("bg-crystallium/10 border-crystallium",{
+      className={cn("bg-crystallium/10 border-crystallium", {
         "border-crystallium/40 ": id !== currentNodeIdSelected,
         "border-crystallium": id === currentNodeIdSelected,
       })}
     >
-      <MultiLevelHeaderNodeContainer >
+      <MultiLevelHeaderNodeContainer>
         <img width={16} height={16} src={CrystalliumLogo} alt="" />
         <p className="text-white font-semibold text-lg ">
           Crystallium{" "}
@@ -111,7 +117,7 @@ export default function CrystalliumFactory({ id, data }: any) {
           percentage={(count / CRYSTALLIUM_GENERATION_THRESHOLD) * 100}
         />
       </MultiLevelHeaderNodeContainer>
-      <SectionHeaderMultiLevelNode  material={NodeMaterialsType.crystallium}>
+      <SectionHeaderMultiLevelNode material={NodeMaterialsType.crystallium}>
         <p className="text-xs text-muted-foreground px-2 py-1">
           Required Factories
         </p>

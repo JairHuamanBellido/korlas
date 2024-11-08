@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import {
   Handle,
+  Node,
+  NodeProps,
   Position,
   useHandleConnections,
   useReactFlow,
@@ -18,8 +20,12 @@ import { MaterialsInventoryService } from "@/domain/services/MaterialsInventoryS
 import { materialInventoryRepository } from "@/infrastructure/repository/materials-inventory.repository";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { queue } from "@/domain/queue";
+import { IBaseNodeFactory } from "@/domain/interface/IBaseNodeFactory";
 
-export default function TitaniumXFactory({ id, data }: any) {
+export default function TitaniumXFactory({
+  id,
+  data,
+}: NodeProps<Node<IBaseNodeFactory>>) {
   const [count, setCount] = useState<number>(1);
   const { updateNodeData } = useReactFlow();
   const { id: currentNodeIdSelected } = useCurrentNodeSelected();
@@ -61,6 +67,7 @@ export default function TitaniumXFactory({ id, data }: any) {
     if (count === TITANIUMX_GENERATION_THRESHOLD) {
       queue.push(async () => await updateQuantity());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count, updateNodeData]);
 
   return (

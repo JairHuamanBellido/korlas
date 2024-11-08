@@ -17,12 +17,12 @@ export default function Sidebar() {
   const currentInventory = useLiveQuery(() =>
     MaterialsInventoryService.getCurrent()
   );
-  const onDragStart = (event: any, nodeType: NodeFactoriesType) => {
+  const onDragStart = (event: React.DragEvent<HTMLDivElement>, nodeType: NodeFactoriesType) => {
     setNodeTypeSelected(nodeType);
     event.dataTransfer.effectAllowed = "move";
   };
 
-  if (!!currentInventory) {
+  if (currentInventory) {
     return (
       <div className="w-[240px] h-screen bg-black p-6">
         <div className="space-y-4 flex flex-col">

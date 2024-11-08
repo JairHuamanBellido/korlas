@@ -20,7 +20,7 @@ export const useOnDrop = ({
   const { current: nodeTypeSelected, setNodeTypeSelected } =
     useCurrentDragNodeSelectedStore();
   const onDrop = useCallback(
-    async (event: any) => {
+    async (event: React.DragEvent<HTMLDivElement>) => {
       event.preventDefault();
 
       const position = screenToFlowPosition({
@@ -77,7 +77,13 @@ export const useOnDrop = ({
 
       setNodeTypeSelected(undefined);
     },
-    [screenToFlowPosition, nodeTypeSelected]
+    [
+      screenToFlowPosition,
+      nodeTypeSelected,
+      setEdges,
+      setNodeTypeSelected,
+      setNodes,
+    ]
   );
 
   return { onDrop };
