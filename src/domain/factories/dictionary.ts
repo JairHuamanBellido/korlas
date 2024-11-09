@@ -1,13 +1,28 @@
 import { NodeFactoriesType } from "@/core/nodeFactoriesType";
 import { NodeMaterialsType } from "@/core/nodeMaterialsType";
 import { IRequiredFactory } from "../interface/IBaseNodeFactory";
+import { NodeRefineriesType } from "@/core/nodeRefineryType";
+import { NodeToolsType } from "@/core/nodeToolsType";
 
 export interface RequiredMaterial {
   name: NodeMaterialsType;
   quantity: number;
 }
 
-interface Factory {
+export interface Tools {
+  name: string;
+  type: NodeToolsType;
+  imageSrc: string;
+  requiredMaterials: RequiredMaterial[];
+}
+export interface Refinery {
+  name: string;
+  type: NodeRefineriesType;
+  imageSrc: string;
+  requiredMaterials: RequiredMaterial[];
+  requiredFactories?: IRequiredFactory[];
+}
+export interface Factory {
   name: string;
   type: NodeFactoriesType;
   imageSrc: string;
@@ -81,14 +96,53 @@ export const factories: Factory[] = [
       },
     ],
   },
+];
+
+export const refineries: Refinery[] = [
   {
     name: "Energel Refinement",
-    type: NodeFactoriesType.energelRefinement,
+    type: NodeRefineriesType.energelRefinery,
     imageSrc: "/energel-factory.png",
     requiredMaterials: [
       {
         name: NodeMaterialsType.solaris,
         quantity: 2,
+      },
+    ],
+  },
+];
+
+export const tools: Tools[] = [
+  {
+    name: "Accelerator %10",
+    type: NodeToolsType.acceleratorX10,
+    imageSrc: "/acceleratorx10-tool.png",
+    requiredMaterials: [
+      {
+        name: NodeMaterialsType.solaris,
+        quantity: 100,
+      },
+    ],
+  },
+  {
+    name: "Accelerator %20",
+    type: NodeToolsType.acceleratorX20,
+    imageSrc: "/acceleratorx20-tool.png",
+    requiredMaterials: [
+      {
+        name: NodeMaterialsType.solaris,
+        quantity: 200,
+      },
+    ],
+  },
+  {
+    name: "Accelerator %30",
+    type: NodeToolsType.acceleratorX30,
+    imageSrc: "/acceleratorx30-tool.png",
+    requiredMaterials: [
+      {
+        name: NodeMaterialsType.solaris,
+        quantity: 500,
       },
     ],
   },
