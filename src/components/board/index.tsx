@@ -18,6 +18,9 @@ import EnergelRefinement from "../nodes/energel/refinery";
 import EnergelFactoryInput from "../nodes/energel/factory-input";
 import EnergelRefinementNode from "../nodes/energel/refinement-node";
 import EnergelStorage from "../nodes/energel/storage";
+import { Acceleratorx10Tool } from "../nodes/acceleratorx10";
+import { Acceleratorx20Tool } from "../nodes/acceleratorx20";
+import { Acceleratorx30Tool } from "../nodes/acceleratorx30";
 
 interface Props {
   flowGraph: IFlowGraphIndexDB;
@@ -36,6 +39,9 @@ export default function Board({ flowGraph }: Props) {
       energelFactoryInput: EnergelFactoryInput,
       energelRefinementNode: EnergelRefinementNode,
       energelStorage: EnergelStorage,
+      acceleratorX10: Acceleratorx10Tool,
+      acceleratorX20: Acceleratorx20Tool,
+      acceleratorX30: Acceleratorx30Tool,
     }),
     []
   );
